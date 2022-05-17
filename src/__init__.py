@@ -19,10 +19,17 @@ def seed():
     """
     return [
         Page(
-            Label("Hello, world!")
+            action := Check(
+                "Select an action",
+                ["Attack", "Shield", "Wait", "Quit"]
+            )
         ),
         Page(
-            Label("Goodbye, world!"),
+            Label(compile=partial(show_action, action)),
             back=True
         )
     ]
+
+
+def show_action(label, action):
+    label.label = f"Your action was {action.response}"
